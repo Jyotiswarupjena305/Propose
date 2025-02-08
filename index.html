@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 6vw;
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 5vw;
+            transition: transform 0.3s ease;
+            position: absolute;
+        }
+
+        .yes-btn {
+            background-color: #ff6666;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: #ccc;
+            color: black;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .love-message {
+            font-size: 8vw;
+            color: #e60073;
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Star Animations */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffcccc;
+            font-size: 3vw;
+            animation: float 5s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 1;
+            }
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="star-container"></div>
+
+    <div class="container" id="question-container">
+        <h1>Do you love me? ❤️</h1>
+        <button class="yes-btn" onclick="handleYes()">Yes ❤️</button>
+        <button class="no-btn" onclick="handleNo()">No 😢</button>
+    </div>
+
+    <div class="container hidden" id="love-message-container">
+        <h1 class="love-message">I LOVE YOU! 💖</h1>
+        <p>You just made my day the happiest! 🌹✨</p>
+        <img src="ilu.jpg" alt="Love Image" style="border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); width: 150px; height: 340px;">
+    </div>
+
+    <script>
+        let noClickCount = 0;
+
+        function handleYes() {
+            document.getElementById('question-container').classList.add('hidden');
+            document.getElementById('love-message-container').classList.remove('hidden');
+        }
+
+        function handleNo() {
+            noClickCount++;
+            moveButtons();
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = `
+                <h1>Are you sure? 🥺 (Please click Yes!)</h1>
+                <img src="teddy.gif" alt="Cute" style="border-radius: 10px; width: 120px; height: 120px;">
+                <br>
+                <button class="yes-btn" onclick="handleYes()">Yes ❤️</button>
+                <button class="no-btn" onclick="handleNo()">No 😢</button>
+            `;
+            moveButtons();
+        }
+
+        function moveButtons() {
+            const yesBtn = document.querySelector('.yes-btn');
+            const noBtn = document.querySelector('.no-btn');
+
+            const maxX = window.innerWidth - 100;
+            const maxY = window.innerHeight - 50;
+
+            yesBtn.style.left = Math.random() * maxX + 'px';
+            yesBtn.style.top = Math.random() * maxY + 'px';
+
+            noBtn.style.left = Math.random() * maxX + 'px';
+            noBtn.style.top = Math.random() * maxY + 'px';
+        }
+
+        // Star Animation Generator
+        function createStars() {
+            const starContainer = document.getElementById('star-container');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.textContent = '*';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDuration = Math.random() * 3 + 3 + 's';
+                star.style.fontSize = Math.random() * 4 + 2 + 'vw';
+                starContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+</body>
+</html>

@@ -14,36 +14,33 @@
             margin: 0;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
-            padding: 10px;
         }
 
         .container {
             text-align: center;
             background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-in-out;
-            position: relative;
-            z-index: 1;
-            max-width: 90%;
-            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            max-width: 95%;
+            width: 90%;
         }
 
         h1 {
             color: #ff4d4d;
-            font-size: 6vw;
+            font-size: 7vw;
+            margin: 10px 0;
         }
 
         button {
-            padding: 12px 24px;
-            margin: 10px;
+            padding: 10px 20px;
+            margin: 8px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 5vw;
             transition: transform 0.3s ease;
-            position: absolute;
+            position: relative;
         }
 
         .yes-btn {
@@ -64,13 +61,8 @@
             display: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .love-message {
-            font-size: 8vw;
+            font-size: 9vw;
             color: #e60073;
             animation: heartbeat 1s infinite;
         }
@@ -80,7 +72,13 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Star Animations */
+        img {
+            width: 80px;
+            height: 160px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
         .stars {
             position: absolute;
             top: 0;
@@ -94,8 +92,8 @@
         .star {
             position: absolute;
             color: #ffcccc;
-            font-size: 3vw;
-            animation: float 5s linear infinite;
+            font-size: 4vw;
+            animation: float 4s linear infinite;
             opacity: 0.8;
         }
 
@@ -108,13 +106,6 @@
                 transform: translateY(-10vh);
                 opacity: 1;
             }
-        }
-
-        img {
-            width: 20px;
-            height: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -130,7 +121,7 @@
     <div class="container hidden" id="love-message-container">
         <h1 class="love-message">I LOVE YOU! 💖</h1>
         <p>You just made my day the happiest! 🌹✨</p>
-        <img src="ilu.jpg" alt="Love Image" style="border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); width: 150px; height: 340px;">
+        <img src="ilu.jpg" alt="Love Image">
     </div>
 
     <script>
@@ -143,11 +134,10 @@
 
         function handleNo() {
             noClickCount++;
-            moveButtons();
             const questionContainer = document.getElementById('question-container');
             questionContainer.innerHTML = `
                 <h1>Are you sure? 🥺 (Please click Yes!)</h1>
-                <img src="teddy.gif" alt="Cute" style="border-radius: 10px; width: 120px; height: 120px;">
+                <img src="teddy.gif" alt="Cute" style="border-radius: 10px; width: 100px; height: 100px;">
                 <br>
                 <button class="yes-btn" onclick="handleYes()">Yes ❤️</button>
                 <button class="no-btn" onclick="handleNo()">No 😢</button>
@@ -159,8 +149,11 @@
             const yesBtn = document.querySelector('.yes-btn');
             const noBtn = document.querySelector('.no-btn');
 
-            const maxX = window.innerWidth - 100;
-            const maxY = window.innerHeight - 50;
+            const maxX = window.innerWidth - 120;
+            const maxY = window.innerHeight - 80;
+
+            yesBtn.style.position = 'absolute';
+            noBtn.style.position = 'absolute';
 
             yesBtn.style.left = Math.random() * maxX + 'px';
             yesBtn.style.top = Math.random() * maxY + 'px';
@@ -169,16 +162,15 @@
             noBtn.style.top = Math.random() * maxY + 'px';
         }
 
-        // Star Animation Generator
         function createStars() {
             const starContainer = document.getElementById('star-container');
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.textContent = '*';
                 star.style.left = Math.random() * 100 + 'vw';
-                star.style.animationDuration = Math.random() * 3 + 3 + 's';
-                star.style.fontSize = Math.random() * 4 + 2 + 'vw';
+                star.style.animationDuration = Math.random() * 2 + 3 + 's';
+                star.style.fontSize = Math.random() * 3 + 2 + 'vw';
                 starContainer.appendChild(star);
             }
         }
